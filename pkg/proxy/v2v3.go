@@ -22,6 +22,12 @@ type (
 		Weight      *int64 `json:"weight,omitempty"`
 		MaxFails    *int64 `json:"max_fails,omitempty"`
 		FailTimeout *int64 `json:"fail_timeout,omitempty"`
+
+		// 上线状态 0,1
+		Down *int8 `json:"down,omitempty"`
+
+		// 后备状态 0,1
+		Backup *int8 `json:"backup,omitempty"`
 	}
 )
 
@@ -41,7 +47,7 @@ func Transform(key string, response *clientv3.GetResponse) *v2store.Event {
 		})
 	}
 
-	event := v2store.NewEvent(v2store.Get, key, 0, 0)
+	event := v2store.NewEvent(v2store.Get, key, uint64(response.Header.Revision), 0)
 	event.Node.Nodes = nodes
 
 	return event
