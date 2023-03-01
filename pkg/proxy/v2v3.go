@@ -41,26 +41,23 @@ func Transform(key string, response *clientv3.GetResponse) *v2store.Event {
 		})
 	}
 
-	return &v2store.Event{
-		Action: v2store.Get,
-		Node: &v2store.NodeExtern{
-			Key:   key,
-			Nodes: nodes,
-		},
-	}
+	event := v2store.NewEvent(v2store.Get, key, 0, 0)
+	event.Node.Nodes = nodes
 
+	return event
 }
 
 // kv种类
-//   1、upsync 标准
-// 		key：/upstream/somerpc/<ip>:<port>
-//      val：
-//   2、go-zero风格
-//		key：/some_path/somerpc/<lease>
-//      val：<ip>:<port>
-//   3、url 风格
-//		key：/some_path/somerpc/<lease>
-//      val：//<ip>:<port>/?weight=1&max_fails=2&fail_timeout=10
+//
+//	  1、upsync 标准
+//			key：/upstream/somerpc/<ip>:<port>
+//	     val：
+//	  2、go-zero风格
+//			key：/some_path/somerpc/<lease>
+//	     val：<ip>:<port>
+//	  3、url 风格
+//			key：/some_path/somerpc/<lease>
+//	     val：//<ip>:<port>/?weight=1&max_fails=2&fail_timeout=10
 func formatKey(key, val []byte) (newKey, newVal string, err error) {
 	_key := string(key)
 	_v := string(val)

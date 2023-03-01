@@ -33,7 +33,7 @@ type Event struct {
 	Refresh   bool        `json:"refresh,omitempty"`
 }
 
-func newEvent(action string, key string, modifiedIndex, createdIndex uint64) *Event {
+func NewEvent(action string, key string, modifiedIndex, createdIndex uint64) *Event {
 	n := &NodeExtern{
 		Key:           key,
 		ModifiedIndex: modifiedIndex,
