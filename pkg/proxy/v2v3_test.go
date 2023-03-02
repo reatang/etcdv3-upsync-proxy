@@ -17,7 +17,7 @@ func Test_formatKey(t *testing.T) {
 		{
 			name: "std upsync format",
 			args: args{
-				key: []byte("L3Vwc3RyZWFtL3NvbWVycGMvMTI3LjAuMC4xOjgwODE="),
+				key: []byte("/upstream/somerpc/127.0.0.1:8081"),
 				val: []byte{},
 			},
 			wantNewKey: "/upstream/somerpc/127.0.0.1:8081",
@@ -27,8 +27,8 @@ func Test_formatKey(t *testing.T) {
 		{
 			name: "go-zero style",
 			args: args{
-				key: []byte("L3NlcnZpY2UvaGVsbG9ycGMucnBjLzc1ODc4Njg5NTEwMjU4MDY1OTk="),
-				val: []byte("MTAuMjU0Ljc4LjQ6ODA4MQ=="),
+				key: []byte("/service/hellorpc.rpc/2131421513123512"),
+				val: []byte("10.254.78.4:8081"),
 			},
 			wantNewKey: "/service/hellorpc.rpc/10.254.78.4:8081",
 			wantNewVal: "",
@@ -37,8 +37,8 @@ func Test_formatKey(t *testing.T) {
 		{
 			name: "url style",
 			args: args{
-				key: []byte("L3NlcnZpY2UvaGVsbG9ycGMucnBjLzc1ODc4Njg5NTEwMjU4MDY1OTk="),
-				val: []byte("Ly8xMjcuMC4wLjE6ODA4MC8/d2VpZ2h0PTEmbWF4X2ZhaWxzPTImZmFpbF90aW1lb3V0PTEw"),
+				key: []byte("/service/hellorpc.rpc/2131421513123512"),
+				val: []byte("//127.0.0.1:8080/?weight=1&max_fails=2&fail_timeout=10"),
 			},
 			wantNewKey: "/service/hellorpc.rpc/127.0.0.1:8080",
 			wantNewVal: "{\"weight\":1,\"max_fails\":2,\"fail_timeout\":10}",
