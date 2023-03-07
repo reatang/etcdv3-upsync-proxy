@@ -25,6 +25,16 @@ func Test_formatKey(t *testing.T) {
 			wantErr:    false,
 		},
 		{
+			name: "std upsync format 2",
+			args: args{
+				key: []byte("/upstream/somerpc/127.0.0.1:8081"),
+				val: []byte("{\"weight\":1,\"max_fails\":2,\"fail_timeout\":10}"),
+			},
+			wantNewKey: "/upstream/somerpc/127.0.0.1:8081",
+			wantNewVal: "{\"weight\":1,\"max_fails\":2,\"fail_timeout\":10}",
+			wantErr:    false,
+		},
+		{
 			name: "go-zero style",
 			args: args{
 				key: []byte("/service/hellorpc.rpc/2131421513123512"),
