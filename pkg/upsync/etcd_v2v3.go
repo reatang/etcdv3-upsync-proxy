@@ -57,16 +57,16 @@ func Transform(key string, response *clientv3.GetResponse) *v2store.Event {
 //
 //	  1、upsync 标准
 //			key：/upstream/somerpc/<ip>:<port>
-//	     val：
+//	        val：
 //	  2、upsync 带参数
 //			key：/upstream/somerpc/<ip>:<port>
-//	     val：{"weight":1,"max_fails":2,"fail_timeout":10}
+//	        val：{"weight":1,"max_fails":2,"fail_timeout":10}
 //	  3、go-zero风格
 //			key：/some_path/somerpc/<lease>
-//	     val：<ip>:<port>
+//	        val：<ip>:<port>
 //	  4、url 风格
 //			key：/some_path/somerpc/<lease>
-//	     val：//<ip>:<port>/?weight=1&max_fails=2&fail_timeout=10
+//	        val：//<ip>:<port>/?weight=1&max_fails=2&fail_timeout=10
 func formatKey(key, val []byte) (newKey, newVal string, err error) {
 	_key := string(key)
 	_v := string(val)
