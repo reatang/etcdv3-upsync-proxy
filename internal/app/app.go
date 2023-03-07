@@ -2,25 +2,21 @@ package app
 
 import (
 	"log"
-	"time"
 
+	"github.com/reatang/etcdv3_upsync_proxy/pkg/xetcd"
 	clientv3 "go.etcd.io/etcd/client/v3"
 )
 
-var EtcdClientCli *clientv3.Client
+var EtcdClient *clientv3.Client
 
-func InitApplication() (err error, cleanup func()) {
-
-	EtcdClientCli, err = clientv3.New(clientv3.Config{
-		Endpoints:   []string{"localhost:2379"},
-		DialTimeout: 5 * time.Second,
-	})
+func InitApplication(c ServerConf) (err error, cleanup func()) {
+	EtcdClient, err = xetcd.DialClient(c.Etcd)
 	if err != nil {
 		return
 	}
 
 	return nil, func() {
-		_ = EtcdClientCli.Close()
+		_ = EtcdClient.Close()
 
 		log.Println("Application cleanup")
 	}

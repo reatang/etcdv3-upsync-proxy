@@ -4,7 +4,7 @@ import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
-	"github.com/reatang/etcdv3_upsync_proxy/pkg/proxy"
+	"github.com/reatang/etcdv3_upsync_proxy/pkg/upsync"
 	clientv3 "go.etcd.io/etcd/client/v3"
 )
 
@@ -48,12 +48,12 @@ func v2KeysHandle(ctx *gin.Context) {
 		return
 	}
 
-	response, err := EtcdClientCli.Get(ctx, uri.Key, clientv3.WithPrefix())
+	response, err := EtcdClient.Get(ctx, uri.Key, clientv3.WithPrefix())
 	if err != nil {
 		return
 	}
 
-	event := proxy.Transform(uri.Key, response)
+	event := upsync.Transform(uri.Key, response)
 
 	ctx.JSON(http.StatusOK, event)
 }

@@ -1,4 +1,4 @@
-package proxy
+package upsync
 
 import (
 	"encoding/json"
@@ -10,7 +10,7 @@ import (
 	"strconv"
 	"strings"
 
-	"github.com/reatang/etcdv3_upsync_proxy/pkg/v2store"
+	"github.com/reatang/etcdv3_upsync_proxy/pkg/xetcd/v2store"
 	clientv3 "go.etcd.io/etcd/client/v3"
 )
 
