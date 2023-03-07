@@ -111,7 +111,7 @@ func formatKey(key, val []byte) (newKey, newVal string, err error) {
 		if _, p, err = net.SplitHostPort(_v); err != nil {
 			return "", "", err
 		}
-		_, err = strconv.ParseInt(p, 10, 32)
+		_, err = net.LookupPort("", p)
 		if err != nil {
 			return "", "", err
 		}
