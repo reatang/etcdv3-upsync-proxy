@@ -1,9 +1,10 @@
-package app
+package ginx
 
 import (
 	"net/http"
 
 	"github.com/gin-gonic/gin"
+	"github.com/reatang/etcdv3_upsync_proxy/internal/app"
 	"github.com/reatang/etcdv3_upsync_proxy/pkg/upsync"
 	clientv3 "go.etcd.io/etcd/client/v3"
 )
@@ -16,11 +17,7 @@ const (
 	statsPrefix    = "/v2/stats"
 )
 
-func RegisterRouter(gin *gin.Engine) {
-	gin.GET(keysPrefix+"/*key", v2KeysHandle)
-}
-
-//////////// Handle ////////////////////
+//////////// Struct ////////////////////
 
 type V2KeysUri struct {
 	Key string `uri:"key" binding:"required"`
@@ -31,6 +28,8 @@ type V2KeysRequest struct {
 	WaitIndex int64  `form:"waitIndex"`
 	recursive string `form:"recursive"`
 }
+
+//////////// Handle ////////////////////
 
 func v2KeysHandle(ctx *gin.Context) {
 	var uri V2KeysUri
@@ -48,7 +47,7 @@ func v2KeysHandle(ctx *gin.Context) {
 		return
 	}
 
-	response, err := EtcdClient.Get(ctx, uri.Key, clientv3.WithPrefix())
+	response, err := app.EtcdClient.Get(ctx, uri.Key, clientv3.WithPrefix())
 	if err != nil {
 		return
 	}

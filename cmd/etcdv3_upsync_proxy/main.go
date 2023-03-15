@@ -9,6 +9,7 @@ import (
 	"github.com/fvbock/endless"
 	"github.com/gin-gonic/gin"
 	"github.com/reatang/etcdv3_upsync_proxy/internal/app"
+	"github.com/reatang/etcdv3_upsync_proxy/internal/ginx"
 	"github.com/reatang/etcdv3_upsync_proxy/pkg/conf"
 )
 
@@ -34,7 +35,7 @@ func main() {
 
 func start(c app.ServerConf) error {
 	g := gin.Default()
-	app.RegisterRouter(g)
+	ginx.RegisterRouter(g)
 
 	srv := endless.NewServer(c.ListenOn, g)
 
