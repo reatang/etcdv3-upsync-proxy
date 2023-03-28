@@ -2,6 +2,7 @@ package ginx
 
 import (
 	"net/http"
+	"strings"
 
 	"github.com/gin-gonic/gin"
 	"github.com/reatang/etcdv3_upsync_proxy/internal/app"
@@ -47,7 +48,9 @@ func v2KeysHandle(ctx *gin.Context) {
 		return
 	}
 
-	response, err := app.EtcdClient.Get(ctx, uri.Key, clientv3.WithPrefix())
+	key := strings.TrimPrefix(uri.Key, "/")
+
+	response, err := app.EtcdClient.Get(ctx, key, clientv3.WithPrefix())
 	if err != nil {
 		return
 	}
