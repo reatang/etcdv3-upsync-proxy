@@ -3,14 +3,15 @@ package xnet
 import "net"
 
 var privateIPBlocks = []*net.IPNet{
-	// 10.0.0.0/8
+	// A类：10.0.0.0/8
 	{IP: net.ParseIP("10.0.0.0"), Mask: net.CIDRMask(8, 32)},
-	// 172.16.0.0/12
+	// B类：172.16.0.0/12
 	{IP: net.ParseIP("172.16.0.0"), Mask: net.CIDRMask(12, 32)},
-	// 192.168.0.0/16
+	// C类：192.168.0.0/16
 	{IP: net.ParseIP("192.168.0.0"), Mask: net.CIDRMask(16, 32)},
 }
 
+// IsPrivateIP 计算私有IP
 func IsPrivateIP(ipAddr string) bool {
 	ip := net.ParseIP(ipAddr)
 
