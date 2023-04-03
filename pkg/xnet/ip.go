@@ -14,6 +14,10 @@ var privateIPBlocks = []*net.IPNet{
 func IsPrivateIP(ipAddr string) bool {
 	ip := net.ParseIP(ipAddr)
 
+	if ip == nil {
+		return false
+	}
+
 	for _, block := range privateIPBlocks {
 		if block.Contains(ip) {
 			return true
