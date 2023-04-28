@@ -12,15 +12,18 @@ var privateIPBlocks = []*net.IPNet{
 }
 
 // IsPrivateIP 计算私有IP
-func IsPrivateIP(ipAddr string) bool {
-	ip := net.ParseIP(ipAddr)
-
-	if ip == nil {
+func IsPrivateIP(ip string) bool {
+	ipAddr := net.ParseIP(ip)
+	if ipAddr == nil {
 		return false
 	}
 
+	if ipAddr.IsLoopback() || ipAddr.IsLinkLocalMulticast() || ipAddr.IsLinkLocalUnicast() {
+		return true
+	}
+
 	for _, block := range privateIPBlocks {
-		if block.Contains(ip) {
+		if block.Contains(ipAddr) {
 			return true
 		}
 	}
