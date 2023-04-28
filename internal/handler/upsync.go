@@ -1,4 +1,4 @@
-package ginx
+package handler
 
 import (
 	"net/http"
@@ -8,14 +8,6 @@ import (
 	"github.com/reatang/etcdv3_upsync_proxy/internal/app"
 	"github.com/reatang/etcdv3_upsync_proxy/pkg/upsync"
 	clientv3 "go.etcd.io/etcd/client/v3"
-)
-
-const (
-	authPrefix     = "/v2/auth"
-	keysPrefix     = "/v2/keys"
-	machinesPrefix = "/v2/machines"
-	membersPrefix  = "/v2/members"
-	statsPrefix    = "/v2/stats"
 )
 
 //////////// Struct ////////////////////
@@ -32,7 +24,7 @@ type V2KeysRequest struct {
 
 //////////// Handle ////////////////////
 
-func v2KeysHandle(ctx *gin.Context) {
+func V2KeysHandle(ctx *gin.Context) {
 	var uri V2KeysUri
 	if ctx.ShouldBindUri(&uri) != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{

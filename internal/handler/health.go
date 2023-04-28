@@ -1,4 +1,4 @@
-package ginx
+package handler
 
 import (
 	"net"
@@ -19,7 +19,7 @@ type TargetAddr struct {
 
 //////////// Handle ////////////////////
 
-func grpcHealthCheck(ctx *gin.Context) {
+func GrpcHealthCheck(ctx *gin.Context) {
 	var req TargetAddr
 	if ctx.ShouldBindUri(&req) != nil {
 		ctx.JSON(http.StatusBadRequest, gin.H{
