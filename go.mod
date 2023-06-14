@@ -1,11 +1,11 @@
-module github.com/reatang/etcdv3_upsync_proxy
+module github.com/reatang/etcdv3-upsync-proxy
 
 go 1.17
 
 require (
 	github.com/fsnotify/fsnotify v1.6.0
 	github.com/fvbock/endless v0.0.0-20170109170031-447134032cb6
-	github.com/gin-gonic/gin v1.9.0
+	github.com/gin-gonic/gin v1.9.1
 	github.com/spf13/viper v1.15.0
 	go.etcd.io/etcd/client/v3 v3.5.7
 )

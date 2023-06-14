@@ -1,8 +1,8 @@
-# etcdv3_upsync_proxy
+# etcdv3-upsync-proxy
 
-etcd 3.5 注册的服务在v2版本的接口中读取不到
+解决在`etcd3.*`注册的服务信息，使用v2版本的接口中读取不到的问题
 
-该项目专门支持 `https://github.com/weibocom/nginx-upsync-module` 使用v2版本调用v3的数据
+该项目专门支持 `https://github.com/weibocom/nginx-upsync-module` 使用v2版本请求调用v3版本的数据
 
  - [x] 基本的读取功能，/v2/keys/path/to/you_service
  - [x] 支持go-zero的服务发现方式转换为upsync的服务发现数据格式
