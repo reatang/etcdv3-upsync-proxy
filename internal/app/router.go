@@ -2,7 +2,7 @@ package app
 
 import (
 	"github.com/gin-gonic/gin"
-	"github.com/reatang/etcdv3_upsync_proxy/internal/handler"
+	"github.com/reatang/etcdv3-upsync-proxy/internal/handler"
 )
 
 const (

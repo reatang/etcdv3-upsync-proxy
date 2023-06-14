@@ -6,8 +6,8 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
-	"github.com/reatang/etcdv3_upsync_proxy/pkg/health"
-	"github.com/reatang/etcdv3_upsync_proxy/pkg/xnet"
+	"github.com/reatang/etcdv3-upsync-proxy/pkg/health"
+	"github.com/reatang/etcdv3-upsync-proxy/pkg/xnet"
 	"google.golang.org/grpc/credentials/insecure"
 )
 

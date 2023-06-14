@@ -12,8 +12,8 @@ import (
 
 	"github.com/fvbock/endless"
 	"github.com/gin-gonic/gin"
-	"github.com/reatang/etcdv3_upsync_proxy/internal/app"
-	"github.com/reatang/etcdv3_upsync_proxy/pkg/conf"
+	"github.com/reatang/etcdv3-upsync-proxy/internal/app"
+	"github.com/reatang/etcdv3-upsync-proxy/pkg/conf"
 )
 
 var configFile = flag.String("f", "configs/config.yaml", "config file")

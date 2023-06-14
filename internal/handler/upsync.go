@@ -5,7 +5,7 @@ import (
 	"strings"
 
 	"github.com/gin-gonic/gin"
-	"github.com/reatang/etcdv3_upsync_proxy/pkg/upsync"
+	"github.com/reatang/etcdv3-upsync-proxy/pkg/upsync"
 	clientv3 "go.etcd.io/etcd/client/v3"
 )
 

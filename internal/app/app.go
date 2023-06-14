@@ -3,7 +3,7 @@ package app
 import (
 	"log"
 
-	"github.com/reatang/etcdv3_upsync_proxy/pkg/xetcd"
+	"github.com/reatang/etcdv3-upsync-proxy/pkg/xetcd"
 	clientv3 "go.etcd.io/etcd/client/v3"
 )
 
