@@ -1,10 +1,14 @@
 package main
 
 import (
+	"context"
 	"flag"
 	"fmt"
 	"log"
+	"net/http"
+	"strings"
 	"syscall"
+	"time"
 
 	"github.com/fvbock/endless"
 	"github.com/gin-gonic/gin"
@@ -40,8 +44,9 @@ func start(c app.ServerConf) error {
 
 	ech := make(chan error)
 	go func() {
-		err := srv.ListenAndServe()
-		if err != nil {
+		if err := srv.ListenAndServe(); err != nil &&
+			!strings.Contains(err.Error(), "use of closed network connection") &&
+			err != http.ErrServerClosed {
 			ech <- err
 		}
 	}()
@@ -55,5 +60,23 @@ func start(c app.ServerConf) error {
 		})
 	}()
 
-	return <-ech
+	err := <-ech
+
+	// graceful shutdown
+	ctx, cancel := context.WithTimeout(context.Background(), 15*time.Second)
+	go func() {
+		defer cancel()
+		if err := srv.Shutdown(ctx); err != nil {
+			log.Println("server shutdown err:", err)
+		}
+	}()
+
+	select {
+	case <-ctx.Done():
+		if ctx.Err() == context.DeadlineExceeded {
+			log.Println("server shutdown timeout:", ctx.Err())
+		}
+	}
+
+	return err
 }

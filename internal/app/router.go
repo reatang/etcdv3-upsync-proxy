@@ -15,8 +15,8 @@ const (
 
 func RegisterRouter(gin *gin.Engine) {
 	// etcd v2 -> v3
-	gin.GET(keysPrefix+"/*key", handler.V2KeysHandle)
+	gin.GET(keysPrefix+"/*key", handler.V2KeysHandle(EtcdClient))
 
 	// grpc health check
-	gin.GET("/health-check/*addr", handler.GrpcHealthCheck)
+	gin.GET("/health-check/*addr", handler.GrpcHealthCheck())
 }

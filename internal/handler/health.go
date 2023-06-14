@@ -19,37 +19,39 @@ type TargetAddr struct {
 
 //////////// Handle ////////////////////
 
-func GrpcHealthCheck(ctx *gin.Context) {
-	var req TargetAddr
-	if ctx.ShouldBindUri(&req) != nil {
-		ctx.JSON(http.StatusBadRequest, gin.H{
-			"errorCode": 400,
-		})
-		return
-	}
-	addr := strings.TrimPrefix(req.Addr, "/")
-	var err error
+func GrpcHealthCheck() gin.HandlerFunc {
+	return func(ctx *gin.Context) {
+		var req TargetAddr
+		if ctx.ShouldBindUri(&req) != nil {
+			ctx.JSON(http.StatusBadRequest, gin.H{
+				"errorCode": 400,
+			})
+			return
+		}
+		addr := strings.TrimPrefix(req.Addr, "/")
+		var err error
 
-	// 检测是否是私有IP
-	host, _, err := net.SplitHostPort(addr)
-	if err != nil || !xnet.IsPrivateIP(host) {
-		ctx.JSON(http.StatusBadRequest, gin.H{
-			"errorCode": 400,
-		})
-		return
-	}
+		// 检测是否是私有IP
+		host, _, err := net.SplitHostPort(addr)
+		if err != nil || !xnet.IsPrivateIP(host) {
+			ctx.JSON(http.StatusBadRequest, gin.H{
+				"errorCode": 400,
+			})
+			return
+		}
 
-	// 健康检查
-	err = health.Check(ctx, addr, insecure.NewCredentials())
-	if err != nil {
-		ctx.JSON(http.StatusServiceUnavailable, gin.H{
-			"status": "NOT_SERVING",
-			"msg":    err.Error(),
-		})
-		return
-	}
+		// 健康检查
+		err = health.Check(ctx, addr, insecure.NewCredentials())
+		if err != nil {
+			ctx.JSON(http.StatusServiceUnavailable, gin.H{
+				"status": "NOT_SERVING",
+				"msg":    err.Error(),
+			})
+			return
+		}
 
-	ctx.JSON(http.StatusOK, gin.H{
-		"status": "SERVING",
-	})
+		ctx.JSON(http.StatusOK, gin.H{
+			"status": "SERVING",
+		})
+	}
 }
