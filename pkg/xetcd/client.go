@@ -11,12 +11,12 @@ import (
 
 type EtcdConf struct {
 	Hosts              []string
-	User               string `yaml:",optional"`
-	Pass               string `yaml:",optional"`
-	CertFile           string `yaml:",optional"`
-	CertKeyFile        string `yaml:",optional=CertFile"`
-	CACertFile         string `yaml:",optional=CertFile"`
-	InsecureSkipVerify bool   `yaml:",optional"`
+	User               string
+	Pass               string
+	CertFile           string
+	CertKeyFile        string
+	CACertFile         string
+	InsecureSkipVerify bool
 }
 
 // HasAccount returns if account provided.
